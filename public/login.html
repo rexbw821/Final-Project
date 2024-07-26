@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - SalesShelf</title>
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+
+</head>
+<body>
+    <!-- Navbar Section -->
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="index.html" id="navbar__logo">SALES SHELF</a>
+            <ul class="navbar__menu"></ul>
+        </div>
+        <div class="nav-button">
+            <button class="btn white-btn" id="loginBtn" onclick="toggleForm('login')">Sign In</button>
+            <button class="btn" id="registerBtn" onclick="toggleForm('register')">Sign Up</button>
+        </div>
+        <div class="nav-menu-btn">
+            <i class="bx bx-menu" onclick="myMenuFunction()"></i>
+        </div>
+    </nav>
+
+    <div class="background">
+        <div class="bg">
+            <span><a href="#"></a></span>
+            <header></header>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero" id="home">
+        <!-- Form box -->
+        <div class="form-box">
+            <!-- Login Form -->
+            <div class="login-container" id="login">
+                <div class="top">
+                    <span>Don't have an account? <a href="#" onclick="toggleForm('register')">Sign Up</a></span>
+                    <header>Login</header>
+                </div>
+                <form>
+                    <div class="input-box">
+                        <input type="text" class="input-field" placeholder="Username or Email" required>
+                        <i class="bx bx-user"></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="password" class="input-field" id="login-password" placeholder="Password" required>
+                        <i class="bx bx-lock-alt"></i>
+                        <span class="toggle-password" onclick="togglePasswordVisibility('login-password')">
+                            <i id="login-eye-icon" class="fas fa-eye"></i>
+                        </span>
+                    </div>
+                    <div class="input-box">
+                        <input type="submit" class="submit" value="Log In">
+                    </div>
+                    <div class="two-col">
+                        <div class="one">
+                            <input type="checkbox" id="login-check">
+                            <label for="login-check"> Remember Me</label>
+                        </div>
+                        <div class="two">
+                            <label><a href="#">Forgot password?</a></label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Registration Form -->
+            <div class="register-container" id="register">
+                <div class="top">
+                    <span>Have an account? <a href="#" onclick="toggleForm('login')">Login</a></span>
+                    <header>Sign Up</header>
+                </div>
+                <form>
+                    <div class="two-forms">
+                        <div class="input-box">
+                            <input type="text" class="input-field" placeholder="Firstname" required>
+                            <i class="bx bx-user"></i>
+                        </div>
+                        <div class="input-box">
+                            <input type="text" class="input-field" placeholder="Lastname" required>
+                            <i class="bx bx-user"></i>
+                        </div>
+                    </div>
+                    <div class="input-box">
+                        <input type="email" class="input-field" placeholder="Email" required>
+                        <i class="bx bx-envelope"></i>
+                    </div>
+                    <div class="input-box">
+                        <input type="password" class="input-field" id="register-password" placeholder="Password" required>
+                        <i class="bx bx-lock-alt"></i>
+                        <span class="toggle-password" onclick="togglePasswordVisibility('register-password')">
+                            <i id="register-eye-icon" class="fas fa-eye"></i>
+                        </span>
+                    </div>
+                    <div class="input-box">
+                        <input type="submit" class="submit" value="Register">
+                    </div>
+                    <div class="two-col">
+                        <div class="one">
+                            <input type="checkbox" id="register-check">
+                            <label for="register-check"> Remember Me</label>
+                        </div>
+                        <div class="two">
+                            <label><a href="#">Terms & conditions</a></label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleForm(form) {
+            var loginForm = document.getElementById('login');
+            var registerForm = document.getElementById('register');
+            var loginBtn = document.getElementById('loginBtn');
+            var registerBtn = document.getElementById('registerBtn');
+
+            if (form === 'login') {
+                loginForm.style.left = '4px';
+                registerForm.style.right = '-520px';
+                loginBtn.classList.add('white-btn');
+                registerBtn.classList.remove('white-btn');
+                loginForm.style.opacity = 1;
+                registerForm.style.opacity = 0;
+            } else {
+                loginForm.style.left = '-510px';
+                registerForm.style.right = '5px';
+                loginBtn.classList.remove('white-btn');
+                registerBtn.classList.add('white-btn');
+                loginForm.style.opacity = 0;
+                registerForm.style.opacity = 1;
+            }
+        }
+
+        // Password Visibility
+        function togglePasswordVisibility(passwordFieldId) {
+            var passwordField = document.getElementById(passwordFieldId);
+            var icon = passwordField.nextElementSibling.querySelector('i');
+
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordField.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HomePage - SalesShelf</title>
+  <link rel="stylesheet" href="css/homepage.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+    integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
+    crossorigin="anonymous" />
+</head>
+<body>
+  <!-- Navbar Section -->
+  <nav class="navbar">
+    <div class="navbar__container">
+      <a href="#home" id="navbar__logo">SALES SHELF</a>
+      <div class="navbar__toggle" id="mobile-menu">
+        <span class="bar"></span> <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+      <ul class="navbar__menu">
+        <li class="navbar__item">
+          <a href="#home" class="navbar__links" id="home-page">Home</a>
+        </li>
+        <li class="navbar__item">
+          <a href="#" class="navbar__links" id="about-page" onclick="toggleBox('aboutBox')">About</a>
+        </li>
+        <li class="navbar__item">
+          <a href="#" class="navbar__links" id="notifications-page" onclick="toggleBox('notificationBox')">Notifications</a>
+        </li>
+        <li class="navbar__item">
+          <a href="#help" class="navbar__links" id="help-page" onclick="toggleBox('helpBox')">Help</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Background Section -->
+  <div class="background" id="home">
+    <div class="slideshow-container">
+      <div class="mySlides fade">
+        <img src="images/image1.jpg" style="width:100%">
+      </div>
+
+      <div class="mySlides fade">
+        <img src="images/image2.jpg" style="width:100%">
+      </div>
+
+      <div class="mySlides fade">
+        <img src="images/image3.jpg" style="width:100%">
+      </div>
+
+      <div class="mySlides fade">
+        <img src="images/image4.jpg" style="width:100%">
+      </div>
+
+      <div class="mySlides fade">
+        <img src="images/image5.jpg" style="width:100%">
+      </div>
+
+      <div class="mySlides fade">
+        <img src="images/image6.jpg" style="width:100%">
+      </div>
+
+      <div class="mySlides fade">
+        <img src="images/image7.jpg" style="width:100%">
+      </div>
+
+      <div class="mySlides fade">
+        <img src="images/image8.jpg" style="width:100%">
+      </div>
+
+      <div class="mySlides fade">
+        <img src="images/image9.jpg" style="width:100%">
+      </div>
+
+      <div class="mySlides fade">
+        <img src="images/image10.jpg" style="width:100%">
+      </div>
+
+      <div class="mySlides fade">
+        <img src="images/image11.jpg" style="width:100%">
+      </div>
+
+      <div class="mySlides fade">
+        <img src="images/image12.jpg" style="width:100%">
+      </div>
+
+      <div class="mySlides fade">
+        <img src="images/image13.jpg" style="width:100%">
+      </div>
+
+      <div class="mySlides fade">
+        <img src="images/image14.jpg" style="width:100%">
+      </div>
+
+      <div class="mySlides fade">
+        <img src="images/image15.jpg" style="width:100%">
+      </div>
+    </div>
+
+    <!-- About Box -->
+    <div id="aboutBox" class="about-box info-box">
+      <div class="about-header">About</div>
+      <div class="about-content">
+        <p>Welcome to Sales Shelf. Here, we manage your Bookshop's Library with seamless transactions and efficiency, keeping records with great details.</p>
+      </div>
+    </div>
+
+    <!-- Notification Box -->
+    <div id="notificationBox" class="notification-box info-box">
+      <div class="notification-header">Notifications</div>
+      <div id="notificationTable" class="notification-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Notification</th>
+              <th>Date</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Notification items will be added dynamically here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Help Box -->
+    <div id="helpBox" class="help-box info-box">
+      <div class="help-header">Help</div>
+      <div class="help-content">
+        <p>1.Click on the Books' Library button to access Library Database.</p>
+        <p>2.Click on the Add Transaction button to Transaction page.</p>
+        <p>3.Click on the Transaction History button to access Transaction History.</p>
+      </div>
+    </div>
+
+    <div class="button-container">
+      <a href="library.html" class="btn white-btn bigger-btn" id="libraryBtn">Books Library</a>
+      <a href="transaction.html" class="btn big-btn" id="AddTransactionBtn">Add Transaction</a>
+      <a href="history.html" class="btn bigger-btn" id="TransactionHistoryBtn">Transaction History</a>
+    </div>
+  </div>
+
+  <script src="js/homepage.js"></script>
+  <script>
+    var slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+      var i;
+      var slides = document.getElementsByClassName("mySlides");
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";  
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) {slideIndex = 1}    
+      slides[slideIndex-1].style.display = "block";  
+      setTimeout(showSlides, 3600); // Change image every 3 seconds
+    }
+
+    // Function to toggle the specified box
+    function toggleBox(boxId) {
+      var box = document.getElementById(boxId);
+      var isBoxVisible = box.style.display === 'block';
+      hideAllBoxes();
+      if (!isBoxVisible) {
+        box.style.display = 'block';
+      }
+    }
+
+    // Function to hide all boxes
+    function hideAllBoxes() {
+      var boxes = document.getElementsByClassName('info-box');
+      for (var i = 0; i < boxes.length; i++) {
+        boxes[i].style.display = 'none';
+      }
+    }
+
+    // Close boxes when clicking outside
+    window.onclick = function(event) {
+      if (!event.target.classList.contains('navbar__links')) {
+        hideAllBoxes();
+      }
+    };
+
+    // Function to add a notification
+    function addNotification(text, dateTime) {
+      var table = document.getElementById('notificationTable').getElementsByTagName('tbody')[0];
+      var newRow = table.insertRow();
+      var cell1 = newRow.insertCell(0);
+      var cell2 = newRow.insertCell(1);
+      var cell3 = newRow.insertCell(2);
+      cell1.innerHTML = text;
+      cell2.innerHTML = dateTime.split(' ')[0];
+      cell3.innerHTML = dateTime.split(' ')[1];
+    }
+
+    // Get current date and time
+    function getCurrentDateTime() {
+      var now = new Date();
+      var date = now.toLocaleDateString();
+      var time = now.toLocaleTimeString();
+      return date + ' ' + time;
+    }
+  </script>
+</body>
+</html>

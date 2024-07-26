@@ -1,0 +1,281 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Kumbh Sans', sans-serif;
+  scroll-behavior: smooth;
+}
+
+.navbar {
+  background: #131313;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.navbar__container {
+  display: flex;
+  justify-content: space-between;
+  height: 80px;
+  z-index: 1;
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 50px;
+}
+
+#navbar__logo {
+  background-color: #ff8177;
+  background-image: linear-gradient(to top, #ff0844 0%, #ffb199 100%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 2rem;
+}
+
+.navbar__menu {
+  display: flex;
+  align-items: center;
+  list-style: none;
+}
+
+.navbar__item {
+  height: 80px;
+}
+
+.navbar__links {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 125px;
+  text-decoration: none;
+  height: 100%;
+  transition: all 0.3s ease;
+}
+
+.navbar__links:hover {
+  color: #9518fc;
+  transition: all 0.3s ease;
+}
+
+@media screen and (max-width: 960px) {
+  .navbar__container {
+    display: flex;
+    justify-content: space-between;
+    height: 80px;
+    z-index: 1;
+    width: 100%;
+    max-width: 1300px;
+    padding: 0;
+  }
+
+  .navbar__menu {
+    display: grid;
+    grid-template-columns: auto;
+    margin: 0;
+    width: 100%;
+    position: absolute;
+    top: -1000px;
+    opacity: 1;
+    transition: all 0.5s ease;
+    z-index: -1;
+  }
+
+  .navbar__menu.active {
+    background: #131313;
+    top: 100%;
+    opacity: 1;
+    transition: all 0.5s ease;
+    z-index: 99;
+    height: 60vh;
+    font-size: 1.6rem;
+  }
+
+  #navbar__logo {
+    padding-left: 25px;
+  }
+
+  .navbar__toggle .bar {
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    transition: all 0.3s ease-in-out;
+    background: #fff;
+  }
+
+  .navbar__item {
+    width: 100%;
+  }
+
+  .navbar__links {
+    text-align: center;
+    padding: 2rem;
+    width: 100%;
+    display: table;
+  }
+
+  .navbar__btn {
+    padding-bottom: 2rem;
+  }
+
+  .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 80px;
+    margin: 0;
+  }
+
+  #mobile-menu {
+    position: absolute;
+    top: 20%;
+    right: 5%;
+    transform: translate(5%, 20%);
+  }
+
+  .navbar__toggle .bar {
+    display: block;
+    cursor: pointer;
+  }
+
+  #mobile-menu.is-active .bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  #mobile-menu.is-active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  #mobile-menu.is-active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+}
+
+/* Background Section */
+.background {
+  background: linear-gradient(to right, #ac59f0, #8f1ddbf8, #e74de0);
+  padding: 50px 0; /* Adjusted padding for better layout */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  z-index: 2;
+  height: calc(100vh - 80px); /* Adjusted height to fit screen */
+}
+
+.edit-btn {
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  padding: 7px 14px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.table-container {
+  width: 80%;
+  max-height: 160vh; /* Set max height for the table container */
+  overflow-y: auto; /* Enable vertical scrolling */
+  margin-top: 10px; /* Margin to position table lower */
+}
+
+.books-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.books-table th {
+  padding: 20px;
+  text-align: left;
+  font-size: large;
+  background-color: #333; /* Black-grey background */
+  color: #fff; /* White text */
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.books-table td {
+  padding: 16px;
+  text-align: left;
+  font-size: medium;
+  font-weight: 600;
+}
+
+.books-table tr:nth-child(even) td {
+  background-color: #f9f9f9; /* Light background for even rows */
+}
+
+.books-table tr:nth-child(odd) td {
+  background-color: #e0e0e0; /* Dark-light background for odd rows */
+}
+
+.edit-controls {
+  position: absolute;
+  top: 15px;
+  left: 80px;
+}
+
+.hidden {
+  display: none;
+}
+
+
+@media screen and (max-width: 768px) {
+  .background {
+    flex-direction: column;
+    align-items: center;
+  }
+
+
+  .table-container{
+    width: 98%;
+    max-width: none;
+    margin-bottom: 20px;
+  }
+}
+
+/* Help Box Specific Styles */
+.help-box {
+  position: absolute; /* Position it absolutely within the background section */
+  top: 20px; /* Adjust as needed */
+  right: 20px; /* Adjust as needed */
+  width: 300px; /* Adjust as needed */
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000; /* Set a high z-index to ensure it is above other elements */
+  display: none; /* Initially hidden */
+}
+
+.help-header {
+  background-color: #ff0844;
+  color: #fff;
+  padding: 10px;
+  font-weight: 700;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.help-content {
+  padding: 10px; /* Add padding */
+}
+
+.help-content p {
+  margin: 0;
+  font-size: 1rem;
+}

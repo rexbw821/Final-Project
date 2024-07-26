@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transactions - SalesShelf</title>
+  <link rel="stylesheet" href="css/history.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+</head>
+<body>
+  <!-- Navbar Section -->
+  <nav class="navbar">
+    <div class="navbar__container">
+      <a href="#home" id="navbar__logo">SALES SHELF</a>
+      <div class="navbar__toggle" id="mobile-menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+      <ul class="navbar__menu">
+        <li class="navbar__item">
+          <a href="homepage.html" class="navbar__links" id="home-page">Home</a>
+        </li>
+        <li class="navbar__item">
+          <a href="#notifications" class="navbar__links" id="notifications-page">Notifications</a>
+        </li>
+        <li class="navbar__item">
+          <a href="#help" class="navbar__links" id="help-page" onclick="toggleBox('helpBox')">Help</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Background Section -->
+  <div class="background" id="home">
+    <!-- Chart Section -->
+    <div class="pnl-chart">
+      <canvas id="pnlChart"></canvas>
+      <div class="chart-controls">
+        <button onclick="changeChart('daily')">Daily</button>
+        <button onclick="changeChart('weekly')">Weekly</button>
+        <button onclick="changeChart('monthly')">Monthly</button>
+        <button onclick="changeChart('yearly')">Yearly</button>
+      </div>
+    </div>
+
+    <!-- Transaction History Section -->
+    <div class="transaction-history">
+      <div class="filter-container">
+        <label for="transaction-date">Select Date:</label>
+        <input type="date" id="transaction-date">
+        <button onclick="filterTransactions()">Filter</button>
+      </div>
+      <table>
+        <thead>
+          <tr class="title-row">
+            <th>Date</th>
+            <th>Time</th>
+            <th>Customer ID</th>
+            <th>Book Title</th>
+            <th>Number Ordered</th>
+            <th>Price per Unit</th>
+            <th>Paid Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="even-row">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr class="odd-row">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <!-- Add more rows as needed -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Help Box -->
+    <div id="helpBox" class="help-box info-box">
+      <div class="help-header">Help</div>
+      <div class="help-content">
+        <p>1. Click on the Filter button to view Transaction History on designated day.</p>
+      </div>
+    </div>
+  </div>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/history.js"></script>
+
+  <script>
+    // Sample data for the PnL chart
+    const chartData = {
+      daily: [/* Your daily data here */],
+      weekly: [/* Your weekly data here */],
+      monthly: [/* Your monthly data here */],
+      yearly: [/* Your yearly data here */],
+    };
+    
+    let currentChartType = 'daily'; // Default to daily
+    
+    const ctx = document.getElementById('pnlChart').getContext('2d');
+    let pnlChart;
+    
+    function generateChart(chartType) {
+      const data = chartData[chartType];
+    
+      if (!data) return;
+    
+      if (pnlChart) {
+        pnlChart.destroy(); // Destroy the existing chart if any
+      }
+    
+      pnlChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: data.map((_, index) => index + 1),
+          datasets: [{
+            label: 'Sales/Transactions',
+            data: data,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgba(255, 99, 132, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    }
+    
+    function changeChart(chartType) {
+      currentChartType = chartType;
+      generateChart(chartType);
+    }
+    
+    // Initialize chart with default type
+    generateChart(currentChartType);
+
+    function filterTransactions() {
+      // Get the selected date from the date picker
+      const selectedDate = document.getElementById('transaction-date').value;
+
+      // Get all table rows
+      const rows = document.querySelectorAll('.transaction-history tbody tr');
+
+      // Loop through each row and hide/show based on the selected date
+      rows.forEach(row => {
+        const dateCell = row.cells[0]; // Assuming the date is in the first column
+        if (dateCell.textContent === selectedDate) {
+          row.style.display = ''; // Show the row
+        } else {
+          row.style.display = 'none'; // Hide the row
+        }
+      });
+    }
+     // Function to toggle help box
+     function toggleBox(boxId) {
+      var box = document.getElementById(boxId);
+      var isBoxVisible = box.style.display === 'block';
+      hideAllBoxes();
+      if (!isBoxVisible) {
+        box.style.display = 'block';
+      }
+    }
+
+    // Function to hide help  box
+    function hideAllBoxes() {
+      var boxes = document.getElementsByClassName('info-box');
+      for (var i = 0; i < boxes.length; i++) {
+        boxes[i].style.display = 'none';
+      }
+    }
+
+    // Close box when clicking outside
+    window.onclick = function(event) {
+      if (!event.target.classList.contains('navbar__links')) {
+        hideAllBoxes();
+      }
+    };
+
+
+  </script>
+</body>
+</html>

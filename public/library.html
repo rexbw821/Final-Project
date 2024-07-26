@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Library - SalesShelf</title>
+    <link rel="stylesheet" href="css/library.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+      integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
+      crossorigin="anonymous"/>
+  </head>
+  <body>
+    <!-- Navbar Section -->
+    <nav class="navbar">
+      <div class="navbar__container">
+        <a href="#home" id="navbar__logo">SALES SHELF</a>
+        <div class="navbar__toggle" id="mobile-menu">
+          <span class="bar"></span> <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+        <ul class="navbar__menu">
+          <li class="navbar__item">
+            <a href="homepage.html" class="navbar__links" id="home-page">Home</a>
+          </li>
+          <li class="navbar__item">
+            <a href="#notifications" class="navbar__links" id="notifications-page">Notifications</a>
+          </li>
+          <li class="navbar__item">
+            <a href="#help" class="navbar__links" id="help-page" onclick="toggleBox('helpBox')">Help</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Background Section -->
+    <div class="background" id="home">
+      <button id="editButton" class="edit-btn">Edit</button>
+      <div class="table-container">
+        <table id="booksTable" class="books-table">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Book ID</th>
+              <th>Supplier</th>
+              <th>Author</th>
+              <th>Price</th>
+              <th>Stock</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Sample rows for demonstration -->
+            <tr>
+              <td>1</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+         <!-- Help Box -->
+    <div id="helpBox" class="help-box info-box">
+      <div class="help-header">Help</div>
+      <div class="help-content">
+        <p>1.Click on the Edit button to access editing library feature.</p>
+        <p>2.Click on the Add Row button to Add new Row.</p>
+        <p>3.Click on the Delete Row button to Delete last Row.</p>
+      </div>
+    </div>
+
+      <div id="editControls" class="edit-controls hidden">
+        <button onclick="addRow()">Add Row</button>
+        <button onclick="deleteRow()">Delete Row</button>
+      </div>
+    </div>
+    <script src="js/library.js"></script>
+
+    <!-- Edit button(function) -->
+    <script>
+      document.addEventListener('DOMContentLoaded', (event) => {
+        const editButton = document.getElementById('editButton');
+        const editControls = document.getElementById('editControls');
+        const table = document.getElementById('booksTable');
+        let isEditable = false;
+
+        editButton.addEventListener('click', () => {
+          isEditable = !isEditable;
+          editControls.classList.toggle('hidden', !isEditable);
+          table.querySelectorAll('td').forEach(td => {
+            td.setAttribute('contenteditable', isEditable);
+          });
+        });
+      });
+
+      function addRow() {
+        const table = document.getElementById('booksTable').getElementsByTagName('tbody')[0];
+        const rowCount = table.rows.length;
+        const newRow = table.insertRow();
+  
+        // Automatically increment the ID
+        const newId = rowCount + 1;
+  
+        for (let i = 0; i < 6; i++) {
+          const newCell = newRow.insertCell(i);
+          newCell.setAttribute('contenteditable', true);
+          if (i === 0) {
+            newCell.innerText = newId; // Assign the ID to the first cell
+          } else {
+            newCell.innerText = ''; // Leave other cells empty
+          }
+        }
+      }
+
+      function deleteRow() {
+        const table = document.getElementById('booksTable').getElementsByTagName('tbody')[0];
+        const rowCount = table.rows.length;
+        if (rowCount > 0) {
+          table.deleteRow(rowCount - 1);
+        }
+      }
+
+ // Function to toggle help box
+ function toggleBox(boxId) {
+    var box = document.getElementById(boxId);
+    var isBoxVisible = box.style.display === 'block';
+    hideAllBoxes();
+    if (!isBoxVisible) {
+      box.style.display = 'block';
+    }
+  }
+
+  // Function to hide help box
+  function hideAllBoxes() {
+    var boxes = document.getElementsByClassName('info-box');
+    for (var i = 0; i < boxes.length; i++) {
+      boxes[i].style.display = 'none';
+    }
+  }
+
+  // Close box when clicking outside
+  window.onclick = function(event) {
+    if (!event.target.classList.contains('navbar__links') && !event.target.closest('.help-box')) {
+      hideAllBoxes();
+    }
+  };
+
+  document.getElementById('help-page').onclick = function(event) {
+    event.preventDefault();
+    toggleBox('helpBox');
+  };
+
+    </script>
+  </body>
+</html>

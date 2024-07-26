@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Transactions - SalesShelf</title>
+  <link rel="stylesheet" href="css/transaction.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+</head>
+<body>
+  <!-- Navbar Section -->
+  <nav class="navbar">
+    <div class="navbar__container">
+      <a href="#home" id="navbar__logo">SALES SHELF</a>
+      <div class="navbar__toggle" id="mobile-menu">
+        <span class="bar"></span> <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+      <ul class="navbar__menu">
+        <li class="navbar__item">
+          <a href="homepage.html" class="navbar__links" id="home-page">Home</a>
+        </li>
+        <li class="navbar__item">
+          <a href="#notifications" class="navbar__links" id="notifications-page">Notifications</a>
+        </li>
+        <li class="navbar__item">
+          <a href="#help" class="navbar__links" id="help-page" onclick="toggleBox('helpBox')">Help</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Background Section -->
+  <div class="background" id="home">
+    <div class="transaction-form">
+      <h2>Transaction Details</h2>
+      <form id="transaction-form">
+        <div class="table-container">
+          <table id="transaction-table">
+            <thead>
+              <tr>
+                <th>Book Title</th>
+                <th>Author</th>
+                <th>Price per Unit</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Row for the first book -->
+              <tr class="book-entry">
+                <td><input type="text" name="book-title-1" required></td>
+                <td><input type="text" name="author-1" required></td>
+                <td><input type="number" name="price-per-unit-1" min="0" required></td>
+                <td><input type="number" name="quantity-1" min="1" required></td>
+                <td><input type="text" name="total-1" readonly></td>
+                <td><button type="button" class="add-row">+</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="customer-id">
+          <label for="customer-id">Customer ID:</label>
+          <input type="text" id="customer-id" name="customer-id" required>
+        </div>
+        <div class="total-price">
+          <label for="total-price">Total Price:</label>
+          <input type="text" id="total-price" name="total-price" readonly>
+        </div>
+        <button type="submit">Save/Print</button>
+      </form>
+    </div>
+
+    <!-- Help Box -->
+    <div id="helpBox" class="help-box info-box">
+      <div class="help-header">Help</div>
+      <div class="help-content">
+        <p>1. Click on the Plus Sign in the Action Column to add a new row.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/transaction.js"></script>
+  <!-- plus function -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const addButton = document.querySelector('.add-row');
+      const tableBody = document.querySelector('#transaction-table tbody');
+      let rowCount = 1;
+
+      addButton.addEventListener('click', function () {
+        rowCount++;
+        const newRow = document.createElement('tr');
+        newRow.classList.add('book-entry');
+        newRow.innerHTML = `
+          <td><input type="text" name="book-title-${rowCount}" required></td>
+          <td><input type="text" name="author-${rowCount}" required></td>
+          <td><input type="number" name="price-per-unit-${rowCount}" min="0" required></td>
+          <td><input type="number" name="quantity-${rowCount}" min="1" required></td>
+          <td><input type="text" name="total-${rowCount}" readonly></td>
+          <td><button type="button" class="remove-row">-</button></td>
+        `;
+        tableBody.appendChild(newRow);
+      });
+
+      // Event delegation to handle dynamically added remove buttons
+      tableBody.addEventListener('click', function (e) {
+        if (e.target.classList.contains('remove-row')) {
+          e.target.closest('tr').remove();
+        }
+      });
+    });
+
+    // Function to toggle help box
+    function toggleBox(boxId) {
+      var box = document.getElementById(boxId);
+      var isBoxVisible = box.style.display === 'block';
+      hideAllBoxes();
+      if (!isBoxVisible) {
+        box.style.display = 'block';
+      }
+    }
+
+    // Function to hide help box
+    function hideAllBoxes() {
+      var boxes = document.getElementsByClassName('info-box');
+      for (var i = 0; i < boxes.length; i++) {
+        boxes[i].style.display = 'none';
+      }
+    }
+
+    // Close box when clicking outside
+    window.onclick = function (event) {
+      if (!event.target.classList.contains('navbar__links')) {
+        hideAllBoxes();
+      }
+    };
+  </script>
+</body>
+</html>
